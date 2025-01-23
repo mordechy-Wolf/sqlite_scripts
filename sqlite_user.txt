@@ -1,0 +1,42 @@
+-- ============================================
+-- 2. טבלה של משתמשים (Users)
+-- ============================================
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    username TEXT NOT NULL UNIQUE, -- שם המשתמש
+    password TEXT NOT NULL, -- סיסמה
+    created_at DATETIME NOT NULL, -- תאריך יצירה
+    updated_at DATETIME NOT NULL -- תאריך עדכון
+);
+-- ============================================
+
+
+-- 20.1 יצירת משתמש חדש
+-- יצירת משתמש חדש
+-- create_user.sql
+INSERT INTO users (username, password, created_at, updated_at)
+VALUES (?, ?, datetime('now'), datetime('now'));
+
+
+-- 20.4 מחיקת משתמש
+-- מחיקת משתמש לפי מזהה
+DELETE FROM users WHERE id = ?;
+
+
+-- קריאת כל המשתמשים
+SELECT * FROM users;
+
+
+-- 20.2 קריאת מידע על משתמש
+-- קריאת משתמש לפי מזהה
+SELECT * FROM users WHERE id = ?;
+
+
+SELECT id, username, password FROM users WHERE username = ?;
+
+
+-- 20.3 עדכון מידע על משתמש
+-- עדכון שם משתמש, וסיסמה לפי מזהה
+UPDATE users 
+SET username = ?, password = ?, updated_at = datetime('now')
+WHERE id = ?;

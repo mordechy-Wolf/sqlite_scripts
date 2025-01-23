@@ -1,0 +1,25 @@
+-- add_uuid.sql
+INSERT INTO uuids (uuid, username, created_at)
+VALUES (?, ?, ?);
+
+-- ============================================
+-- 1. טבלה של UUID
+-- ============================================
+CREATE TABLE IF NOT EXISTS uuids (
+    uuid TEXT PRIMARY KEY,        -- UUID ייחודי לכל משתמש
+    username TEXT NOT NULL,       -- שם המשתמש (במקום מזהה המשתמש)
+    created_at DATETIME NOT NULL, -- תאריך יצירת ה-UUID
+    FOREIGN KEY (username) REFERENCES users(username) -- קשר לשם המשתמש בטבלת users
+);
+-- ============================================
+
+-- get_uuid_by_username.sql
+SELECT uuid
+FROM uuids
+WHERE username = ?;
+
+-- update_username_by_username.sql
+UPDATE uuids
+SET username = ?
+WHERE username = ?;
+

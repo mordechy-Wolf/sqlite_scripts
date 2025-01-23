@@ -1,0 +1,58 @@
+-- יצירת פעולה חדשה
+INSERT INTO actions (uuid, action_type, description, timestamp)
+VALUES (?, ?, ?, ?);
+
+-- ============================================
+-- 4. טבלה של פעולות (Actions)
+-- ============================================
+CREATE TABLE IF NOT EXISTS actions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    uuid TEXT NOT NULL, -- UUID של המשתמש שביצע את הפעולה
+    action_type TEXT NOT NULL, -- סוג פעולה (יצירה, כניסה, בקשה)
+    description TEXT, -- תיאור הפעולה
+    timestamp DATETIME NOT NULL, -- זמן ביצוע הפעולה
+    FOREIGN KEY (uuid) REFERENCES uuids(uuid) -- קשר ל-UUID של המשתמש
+);
+-- ============================================
+
+-- מחיקת פעולה לפי ID
+DELETE FROM actions WHERE id = ?;
+
+-- ============================================
+-- 7. מחיקת פעולה
+-- ============================================
+-- מחיקת פעולה לפי UUID
+DELETE FROM actions WHERE uuid = ?;
+-- ============================================
+
+-- שליפת פעולה לפי ID
+SELECT * FROM actions WHERE id = ?;
+
+-- שליפת פעולות של משתמש בטווח זמן
+SELECT * FROM actions 
+WHERE uuid = ? AND timestamp BETWEEN ? AND ?;
+
+-- ============================================
+-- 6. קריאת פעולות לפי UUID
+-- ============================================
+-- קריאת פעולות לפי UUID
+SELECT * FROM actions WHERE uuid = ?;
+-- ============================================
+
+-- ============================================
+-- 6. קריאת פעולות לפי UUID
+-- ============================================
+-- קריאת פעולות לפי UUID
+SELECT * FROM actions WHERE uuid = ?;
+-- ============================================
+
+-- שליפת כל הפעולות
+SELECT * FROM actions;
+
+-- שליפת פעולות מסוג מסוים
+SELECT * FROM actions WHERE action_type = ?;
+
+-- עדכון פעולה קיימת
+UPDATE actions
+SET action_type = ?, description = ?, timestamp = ?
+WHERE id = ?;
